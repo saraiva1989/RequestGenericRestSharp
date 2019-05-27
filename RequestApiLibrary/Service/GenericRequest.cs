@@ -4,7 +4,7 @@ using RestSharp;
 
 namespace RequestApiLibrary.Service
 {
-    public class GenericRequest
+    public class GenericRequest : IGenericRequest
     {
         private RestRequest _request;
         private Dictionary<string, string> _headers;

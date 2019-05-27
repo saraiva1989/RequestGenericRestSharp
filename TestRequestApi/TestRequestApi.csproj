@@ -10,9 +10,15 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
     <PackageReference Include="xunit" Version="2.4.0" />
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="Moq" Version="4.10.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\RequestApiLibrary\RequestApiLibrary.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Extensions.DependencyInjection">
+      <HintPath>..\..\..\..\..\..\usr\local\share\dotnet\sdk\NuGetFallbackFolder\microsoft.extensions.dependencyinjection\2.2.0\lib\netcoreapp2.0\Microsoft.Extensions.DependencyInjection.dll</HintPath>
+    </Reference>
   </ItemGroup>
 </Project>

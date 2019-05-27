@@ -5,16 +5,14 @@ using Xunit;
 using RestSharp;
 using RequestApiLibrary.Model;
 using Newtonsoft.Json;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace TestRequestApi
 {
     public class TestGenericRequest
     {
-        private GenericRequest _genericRequest;
-        public TestGenericRequest()
-        {
-            _genericRequest = new GenericRequest();
-        }
+        private readonly GenericRequest _genericRequest = new GenericRequest();
+
         [Fact]
         public void TestGet()
         {
@@ -59,7 +57,25 @@ namespace TestRequestApi
         public void TestState(string country)
         {
             var request = _genericRequest.ReturnJson(null, null, Method.GET, $"http://api.londrinaweb.com.br/PUC/Estados/{country}/0/10000");
+            var state = JsonConvert.DeserializeObject<List<StateOld>>(request);
+            Assert.True(state.Count > 0);
+        }
+
+        [Fact]
+        public void TestIBGEState()
+        {
+            var request = _genericRequest.ReturnJson(null, null, Method.GET, "http://servicodados.ibge.gov.br/api/v1/localidades/estados/");
             var state = JsonConvert.DeserializeObject<List<State>>(request);
+            Assert.True(state.Count > 0);
+        }
+
+        [Theory]
+        [InlineData(12)]
+        [InlineData(35)]
+        public void TestIBGECity(int cityId)
+        {
+            var request = _genericRequest.ReturnJson(null, null, Method.GET, $"http://servicodados.ibge.gov.br/api/v1/localidades/estados/{cityId}/municipios");
+            var state = JsonConvert.DeserializeObject<List<City>>(request);
             Assert.True(state.Count > 0);
         }
 
